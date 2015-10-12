@@ -21,10 +21,18 @@ public class MainActivity extends Activity {
 
     public void startProgress(View view) {
         bar.setProgress(0);
-        for (int i = 0; i < 10; i++) {
-            final int count = i+1;
-            takeSomeTime(5); //cause the current thread to delay for given seconds
-            bar.setProgress(count);
+        new Thread(new Task());
+    }
+
+    class Task implements Runnable {
+        @Override
+        public void run() {
+            bar.setProgress(0);
+            for(int i = 0; i < 10; i++) {
+                final int count = i + 1;
+                takeSomeTime(1);
+                bar.setProgress(count);
+            }
         }
     }
 
