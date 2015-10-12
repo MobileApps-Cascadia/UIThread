@@ -20,7 +20,7 @@ public class MainActivity extends Activity {
     }
 
     public void startProgress(View view) {
-
+        bar.setProgress(0);
         for (int i = 0; i <= 10; i++) {
             takeSomeTime(1); //cause the current thread to delay for given seconds
             bar.setProgress(i);
