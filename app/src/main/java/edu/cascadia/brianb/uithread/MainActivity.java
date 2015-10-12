@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.os.Handler;
 
 public class MainActivity extends Activity {
     private ProgressBar bar;
+    private Handler handler;
 
     /** Called when the activity is first created. */
 
@@ -15,23 +17,31 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         bar = (ProgressBar) findViewById(R.id.progressBar1);
-        bar.setProgress(0);
-
+        handler = new Handler();
     }
 
     public void startProgress(View view) {
         bar.setProgress(0);
-        new Thread(new Task());
+        new Thread(new Task()).start();
     }
 
     class Task implements Runnable {
         @Override
         public void run() {
-            bar.setProgress(0);
             for(int i = 0; i < 10; i++) {
                 final int count = i + 1;
                 takeSomeTime(1);
-                bar.setProgress(count);
+
+                // old (incorrect) code-- violated "do not update UI outside of UI thread"
+                // bar.setProgress(count);
+
+                // correct code
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        bar.setProgress(count);
+                    }
+                });
             }
         }
     }
