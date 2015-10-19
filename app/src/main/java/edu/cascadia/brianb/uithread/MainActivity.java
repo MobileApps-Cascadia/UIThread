@@ -21,14 +21,33 @@ public class MainActivity extends Activity {
 
     public void startProgress(View view) {
         bar.setProgress(0);
-        for (int i = 0; i < 10; i++) {
+        /*for (int i = 0; i < 10; i++) {
             final int count = i+1;
-            takeSomeTime(5); //cause the current thread to delay for given seconds
-            bar.setProgress(count);
+            takeSomeTime(20); //cause the current thread to delay for given seconds
+            bar.setProgress(count);*/
+
+            new Thread(new Task()).start();
         }
     }
 
-    public void takeSomeTime(int seconds){
+    class Task implements Runnable {
+        @Override
+         public void run() {
+            for (int i = 0; i <= 10; i++) {
+                final int value = i;
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                  e.printStackTrace();
+                 }
+                bar.setProgress(value);
+
+             }
+        }
+    }
+
+
+   /* public void takeSomeTime(int seconds){
         long endTime = System.currentTimeMillis() + seconds*1000;
 
         while (System.currentTimeMillis() < endTime) {
@@ -38,5 +57,5 @@ public class MainActivity extends Activity {
                 } catch (Exception e) {}
             }
         }
-    }
+    }*/
 }
