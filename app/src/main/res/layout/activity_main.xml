@@ -22,4 +22,24 @@
         android:text="Start" >
     </Button>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Click count:"
+        android:id="@+id/clickCountTextView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Number of active threads: 0"
+        android:id="@+id/threadCountTextView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Currently blocking thread: 0"
+        android:id="@+id/threadBlockingTextView" />
 </LinearLayout>
